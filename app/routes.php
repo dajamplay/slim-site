@@ -3,6 +3,7 @@
 use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Http\Controllers\WelcomeController;
 
 return function (App $app) {
 
@@ -10,9 +11,7 @@ return function (App $app) {
         return view($response, 'auth.home', ['name' => 'Max']);
     });
 
-    $app->get('/', function (Request $request, Response $response, $params) {
-        $response->getBody()->write("Home page");
-        return $response;
-    });
+    $app->get('/', [WelcomeController::class, 'index']);
+    $app->get('/{name}', [WelcomeController::class, 'show']);
 
 };

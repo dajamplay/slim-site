@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * Контейнер
+ */
 use DI\Container;
-use Slim\Factory\AppFactory;
+
+/**
+ * Bridge соеденит приложение с контейнером
+ */
+use DI\Bridge\Slim\Bridge as SlimAppFactory;
 
 /**
  * Подключить автозагрузку классов
@@ -19,15 +26,11 @@ $container = new Container;
 $settings = require __DIR__ . '/../app/settings.php';
 $settings($container);
 
-/**
- * Передать новый PHP DI контейнер в Slim
- */
-AppFactory::setContainer($container);
 
 /**
  * Создать приложение
  */
-$app = AppFactory::create();
+$app = SlimAppFactory::create($container);
 
 /**
  * Создать промежуточное ПО
