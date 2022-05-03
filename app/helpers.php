@@ -1,14 +1,12 @@
 <?php
 
-/**
- * Глобальные вспомогательные функции
- */
-
+/* Global Helper Functions */
 use Jenssegers\Blade\Blade;
 use Psr\Http\Message\ResponseInterface as Response;
+
+/* Global Helper Functions */
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 
 /*
  * base_path
@@ -42,11 +40,11 @@ if (!function_exists('config_path'))
     }
 }
 
-if (!function_exists('resources_path'))
+if (!function_exists('storage_path'))
 {
-    function resources_path($path = '')
+    function storage_path($path = '')
     {
-        return base_path("resources/{$path}");
+        return base_path("storage/{$path}");
     }
 }
 
@@ -58,19 +56,19 @@ if (!function_exists('public_path'))
     }
 }
 
+if (!function_exists('resources_path'))
+{
+    function resources_path($path = '')
+    {
+        return base_path("resources/{$path}");
+    }
+}
+
 if (!function_exists('routes_path'))
 {
     function routes_path($path = '')
     {
         return base_path("routes/{$path}");
-    }
-}
-
-if (!function_exists('storage_path'))
-{
-    function storage_path($path = '')
-    {
-        return base_path("storage/{$path}");
     }
 }
 
@@ -245,17 +243,5 @@ if (! function_exists('data_set')) {
         }
 
         return $target;
-    }
-}
-
-if (!function_exists('view'))
-{
-    function view(Response $response, $template, $with = []) {
-        $cache = config('blade.cache');
-        $views = config('blade.views');
-
-        $blade = (new Blade($views, $cache))->make($template, $with);
-        $response->getBody()->write($blade->render());
-        return $response;
     }
 }
