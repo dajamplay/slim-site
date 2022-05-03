@@ -6,11 +6,9 @@ use Slim\App;
  * Настроить красивые ошибки
  */
 return function (App $app) {
-    $settings = $app->getContainer()->get('settings');
-
     $app->addErrorMiddleware(
-        $settings['displayErrorDetails'],
-        $settings['logErrorDetails'],
-        $settings['logErrors'],
+        config('middleware.error_details.displayErrorDetails'),
+        config('middleware.error_details.logErrorDetails'),
+        config('middleware.error_details.logErrors')
     );
 };

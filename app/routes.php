@@ -7,7 +7,7 @@ use App\Http\Controllers\WelcomeController;
 
 return function (App $app) {
 
-    $app->get('/home', function (Request $request, Response $response, $params) {
+    $app->get('/home', function (Request $request, Response $response) {
         return view($response, 'auth.home', ['name' => 'Max']);
     });
 
