@@ -2,8 +2,6 @@
 
 use DI\Container;
 use Slim\Factory\AppFactory;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
  * Подключить автозагрузку классов
@@ -40,10 +38,8 @@ $middleware($app);
 /**
  * Определить маршруты
  */
-$app->get('/', function (Request $request, Response $response, $params) {
-    $response->getBody()->write("Home page");
-    return $response;
-});
+$routes = require __DIR__ . '/../app/routes.php';
+$routes($app);
 
 /**
  * Запустить приложение
