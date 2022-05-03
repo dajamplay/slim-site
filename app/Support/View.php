@@ -1,18 +1,29 @@
 <?php
 
-
 namespace App\Support;
 
+use Jenssegers\Blade\Blade;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 
 class View
 {
-    public function test()
+    public $response;
+
+    public function __construct(ResponseFactoryInterface $factory)
     {
-        echo 'view test';
+        $this->response = $factory->createResponse(200, 'Success');
     }
 
-    public function __invoke()
+    public function render(string $template = '', array $with = []) : ResponseInterface
     {
-        // TODO: Implement __invoke() method.
+        $cache = config('blade.cache');
+        $views = config('blade.views');
+
+        $blade = (new Blade($views, $cache))->make($template, $with);
+
+        $this->response->getBody()->write($blade->render());
+
+        return $this->response;
     }
 }

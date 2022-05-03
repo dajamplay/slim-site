@@ -3,18 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Support\View;
-use Slim\App;
 
 class WelcomeController
 {
-    public function index($response, View $view)
+    public function index(View $view)
     {
-        $response->getBody()->write('Welcome Controller Worked!');
-
-        $view->test();
-
-        return $response;
-
+        return $view->render('auth.home', ['name' => 'Max']);
     }
 
     public function show($response, $name, $id)
